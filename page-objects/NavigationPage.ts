@@ -1,15 +1,16 @@
 import {test, Page} from "@playwright/test";
 import { group } from "console";
+import { HelperBase } from "./helperBase";
 
-export class NavigationPage {
-    readonly page: Page;
+export class NavigationPage extends HelperBase{
 
     constructor(page: Page) {
-        this.page = page;
+        super(page);
     }
 
     async gotoFormLayout() {
         await this.selectGroupMenu("Forms");
+        await this.waitForNumberOfSeconds(1) // using method from helper
         await this.page.getByText("Form Layouts").click();
     }
 

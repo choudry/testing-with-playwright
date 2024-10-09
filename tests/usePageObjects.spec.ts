@@ -11,12 +11,12 @@ test.describe("page object models",async () => {
     });
 
     test("navigate to page",async ({page}) => {
-        const navigateTo = new NavigationPage(page);
-        await navigateTo.gotoFormLayout();
-        await navigateTo.gotoDatepicker();
-        await navigateTo.gotoDialog()
-        await navigateTo.gotoWindow();
-        await navigateTo.gotoTooltip();
+        const pom = new PageObjectManager(page)
+        await pom.navigateTo().gotoFormLayout();
+        await pom.navigateTo().gotoDatepicker();
+        await pom.navigateTo().gotoDialog()
+        await pom.navigateTo().gotoWindow();
+        await pom.navigateTo().gotoTooltip();
     });
 
     test("parametarized method",async ({page}) => {
