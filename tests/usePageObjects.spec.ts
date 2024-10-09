@@ -1,7 +1,4 @@
 import {test} from "@playwright/test";
-import { NavigationPage } from '../page-objects/NavigationPage';
-import { FormLayoutPage } from '../page-objects/FormLayoutPage';
-import { DatePickerPage } from "../page-objects/DatePickerPage";
 import { PageObjectManager } from "../page-objects/PageObjectManager";
 
 test.describe("page object models",async () => {
