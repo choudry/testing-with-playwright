@@ -2,6 +2,7 @@ import {test} from "@playwright/test";
 import { NavigationPage } from '../page-objects/NavigationPage';
 import { FormLayoutPage } from '../page-objects/FormLayoutPage';
 import { DatePickerPage } from "../page-objects/DatePickerPage";
+import { PageObjectManager } from "../page-objects/PageObjectManager";
 
 test.describe("page object models",async () => {
    
@@ -19,18 +20,20 @@ test.describe("page object models",async () => {
     });
 
     test("parametarized method",async ({page}) => {
-        const navigateTo = new NavigationPage(page);
-        await navigateTo.gotoFormLayout();
+        const pom = new PageObjectManager(page);
+        await pom.navigateTo().gotoFormLayout();
 
-       const formLayoutPage = new FormLayoutPage(page);
-       await formLayoutPage.submitUsingTheGridFormWithCredentials("test@test.com", "12345", "Option 2");
-       await formLayoutPage.submitBasicFormWithCredentials("test@test.com", "12345", true);
+    //    const formLayoutPage = new FormLayoutPage(page);
+       await pom.onFormLayoutPage().submitUsingTheGridFormWithCredentials("test@test.com", "12345", "Option 2");
+       await pom.onFormLayoutPage().submitBasicFormWithCredentials("test@test.com", "12345", true);
     });
 
     test("parametarized method for datapicker",async ({page}) => {
-        const navigateTo = new NavigationPage(page);
-        await navigateTo.gotoDatepicker();
-        const datePickerPage = new DatePickerPage(page);
-        await datePickerPage.selectCommonDatepickerDateFromToday(5)
+        // const navigateTo = new NavigationPage(page); - manage form page object manager
+
+        const pom = new PageObjectManager(page);
+        await pom.navigateTo().gotoDatepicker();
+        // const datePickerPage = new DatePickerPage(page);
+        await pom.onDatePickerPage().selectCommonDatepickerDateFromToday(5)
     })
 });
