@@ -1,6 +1,6 @@
 import {test, Page} from "@playwright/test";
 import { group } from "console";
-import { HelperBase } from "./helperBase";
+import { HelperBase } from "./HelperBase";
 
 export class NavigationPage extends HelperBase{
 

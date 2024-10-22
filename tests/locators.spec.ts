@@ -1,3 +1,4 @@
+import { faker } from "@faker-js/faker";
 import {expect, test} from "@playwright/test"
 
 test.describe('playwright locators',async () => {
@@ -38,10 +39,11 @@ test.describe('playwright locators',async () => {
     test("user facing locators", async ({page}) => {
         await page.getByRole('textbox', { name: "email" }).first().fill("chmusman");
         await page.getByRole('textbox', { name: "password" }).first().fill("123");
-        await page.getByRole('button', {name: 'Sign in'}).first().click();
 
         // await page.getByLabel('Option 1').first().click();
-        await page.getByPlaceholder('Jane Doe').fill('Usman')
+        const randomFullName = faker.person.fullName();
+        await page.getByPlaceholder('Jane Doe').fill(randomFullName);
+        await page.locator('nb-card', { hasText: 'Inline form'}).getByRole('button', {name: 'Submit'}).click();
     });
 
     test("locating child elements",async ({page}) => {
@@ -58,8 +60,11 @@ test.describe('playwright locators',async () => {
     });
 
     test("reusing locators", async ({page}) => {
+        //using faker library to generate the random data
+        const randomEmail = `${faker.person.fullName().replace(" ", "")} + @test.com`
+
         const basicForm =  page.locator('nb-card', {has: page.getByText("Basic form")});
-        await basicForm.getByRole('textbox', {name: 'email'}).fill('chmusman88@gmail.com');
+        await basicForm.getByRole('textbox', {name: 'email'}).fill(randomEmail);
         await basicForm.getByRole('textbox', {name: 'password'}).fill('12345');
         await basicForm.locator('.custom-checkbox').check();
         await basicForm.getByRole('button').click();
